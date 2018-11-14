@@ -31,15 +31,21 @@ namespace Underprepaired
         {
             services.AddMvc();
 
-            services.AddDbContext<UnderprepairedDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["ConnectionStrings:ProductionDB"]);
-            }
-            );
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddDbContext<UnderprepairedDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
+            }
+            );
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:LocalIdentity"]);
+            }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
