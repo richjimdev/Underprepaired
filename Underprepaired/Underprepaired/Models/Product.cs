@@ -8,6 +8,8 @@ namespace Underprepaired.Models
 {
     public class Product
     {
+        public int ID { get; set; }
+
         [Required]
         [StringLength(20, ErrorMessage = "20 characters or less required")]
         public string Name { get; set; }
