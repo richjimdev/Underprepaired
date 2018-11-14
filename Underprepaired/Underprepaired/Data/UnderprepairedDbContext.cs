@@ -63,5 +63,8 @@ namespace Underprepaired.Data
                 }
             );
         }
+
+        public DbSet<Product> Products { get; set; }
+
     }
 }
