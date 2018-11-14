@@ -45,7 +45,7 @@ namespace Underprepaired.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    //REDIRECT TO ACTION > HOME PAGE
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace Underprepaired.Controllers
 
                 if (result.Succeeded)
                 {
-                    RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -83,6 +83,7 @@ namespace Underprepaired.Controllers
                 }
 
             }
+
             return View();
         }
     }
