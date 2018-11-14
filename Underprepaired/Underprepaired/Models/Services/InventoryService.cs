@@ -22,9 +22,15 @@ namespace Underprepaired.Models.Services
             return await _context.Products.ToListAsync();
         }
 
-        Task<Product> GetProduct(int? id);
+        public async Task<Product> GetProduct(int? id)
+        {
+            return await _context.Products.FirstOrDefaultAsync(x => x.ID == id);
+        }
 
-        Task CreateHotel(Product product);
+        public async Task CreateHotel(Product product)
+        {
+
+        }
 
         Task UpdateProduct(Product product);
 
