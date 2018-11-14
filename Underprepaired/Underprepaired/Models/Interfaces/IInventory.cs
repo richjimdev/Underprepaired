@@ -11,7 +11,7 @@ namespace Underprepaired.Models.Interfaces
 
         Task<Product> GetProduct(int? id);
 
-        Task CreateHotel(Product product);
+        Task CreateProduct(Product product);
 
         Task UpdateProduct(Product product);
 
