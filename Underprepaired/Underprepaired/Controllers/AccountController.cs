@@ -45,9 +45,17 @@ namespace Underprepaired.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
                 }
+                else
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+                    }
+                }
 
             }
-            return View();
+
+            return View(rvm);
         }
     }
 }
