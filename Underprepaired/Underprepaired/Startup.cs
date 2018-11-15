@@ -56,6 +56,9 @@ namespace Underprepaired
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
