@@ -1,26 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using Underprepaired.Models
-
-@inject SignInManager<ApplicationUser> SignInManager
-
-@{ 
+﻿
+@{
     ViewData["Title"] = "Index";
 }
 
-<h1>Hello World!</h1>
-
-@if (SignInManager.IsSignedIn(User))
-{
-    <p>
-        Welcome to my site @User.Claims.First(name => name.Type == "FullName").Value;
-    </p>
-
-    <form asp-action="Logout" asp-controller="Account" method="post">
-        <button type="submit">Logout</button>
-</form>
-}
-else
-{
-    <p>You are not logged in!</p>
-    <a href="/account/login">Login</a>
-}
