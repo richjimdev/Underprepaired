@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Underprepaired.Models
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -7,6 +10,30 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <nav class="navbar navbar-dark bg-dark">
+            <p class="navbar-brand my-auto">UnderprePAIRed!</p>
+            <div class="form-inline my-2 my-lg-0">
+                <p class="text-light my-auto">
+                    Logged In As: @User.Claims.First(name => name.Type == "FullName").Value!
+                </p>
+                <form asp-action="Logout" asp-controller="Account" method="post">
+                    <button class="btn btn-link" type="submit">Logout</button>
+                </form>
+            </div>
+        </nav>
+    }
+    else
+    {
+        <nav class="navbar navbar-dark bg-dark">
+            <p class="navbar-brand my-auto">UnderprePAIRed!</p>
+            <div class="row my-auto">
+                <a class="nav-item nav-link" href="/account/login">Login</a>
+                <a class="nav-item nav-link" href="/account/register">Register</a>
+            </div>
+        </nav>
+    }
     <div>
         @RenderBody()
     </div>
