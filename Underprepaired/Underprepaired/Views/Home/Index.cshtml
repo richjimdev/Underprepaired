@@ -14,8 +14,13 @@
     <p>
         Welcome to my site @User.Claims.First(name => name.Type == "FullName").Value;
     </p>
+
+    <form asp-action="Logout" asp-controller="Account" method="post">
+        <button type="submit">Logout</button>
+</form>
 }
 else
 {
-    //link to login page
+    <p>You are not logged in!</p>
+    <a href="/account/login">Login</a>
 }
