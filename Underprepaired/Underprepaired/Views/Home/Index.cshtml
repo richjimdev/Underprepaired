@@ -1,1 +1,21 @@
-﻿<h1>Hello World!</h1>
+﻿@using Microsoft.AspNetCore.Identity
+@using Underprepaired.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{ 
+    ViewData["Title"] = "Index";
+}
+
+<h1>Hello World!</h1>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        Welcome to my site @User.Claims.First(name => name.Type == "FullName").Value;
+    </p>
+}
+else
+{
+    //link to login page
+}

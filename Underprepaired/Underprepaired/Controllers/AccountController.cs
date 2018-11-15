@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Underprepaired.Models;
 using Underprepaired.Models.ViewModels;
@@ -43,6 +44,21 @@ namespace Underprepaired.Controllers
 
                 if (result.Succeeded)
                 {
+                    Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
+
+                    Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
+
+
+                    List<Claim> myClaims = new List<Claim>()
+                    {
+                        fullNameClaim,
+                        emailClaim
+                    };
+
+                    //await _userManager.AddClaimAsync(user, fullNameClaim);
+
+                    await _userManager.AddClaimsAsync(user, myClaims);
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("Index", "Home");
