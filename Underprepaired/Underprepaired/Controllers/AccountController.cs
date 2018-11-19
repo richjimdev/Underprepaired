@@ -112,5 +112,12 @@ namespace Underprepaired.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Authorize(Policy = "FounderEmailPolicy")]
+        public IActionResult Founder()
+        {
+            return View();
+        }
     }
 }
