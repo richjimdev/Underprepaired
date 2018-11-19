@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Underprepaired.Data;
 using Underprepaired.Models;
 using Underprepaired.Models.Handlers;
+using Underprepaired.Models.Interfaces;
+using Underprepaired.Models.Services;
 
 namespace Underprepaired
 {
@@ -62,6 +64,8 @@ namespace Underprepaired
             });
 
             services.AddScoped<IAuthorizationHandler, UnderprepairedEmailHandler>();
+            services.AddScoped<IInventory, InventoryService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

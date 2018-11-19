@@ -56,8 +56,6 @@ namespace Underprepaired.Controllers
                         emailClaim
                     };
 
-                    //await _userManager.AddClaimAsync(user, fullNameClaim);
-
                     await _userManager.AddClaimsAsync(user, myClaims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
