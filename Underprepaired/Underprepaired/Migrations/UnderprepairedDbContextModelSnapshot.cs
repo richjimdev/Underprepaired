@@ -24,7 +24,7 @@ namespace Underprepaired.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("Username");
 
                     b.HasKey("ID");
 

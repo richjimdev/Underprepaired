@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Underprepaired.Data;
 using Underprepaired.Models;
+using Underprepaired.Models.Interfaces;
 using Underprepaired.Models.ViewModels;
 
 namespace Underprepaired.Controllers
@@ -15,11 +17,13 @@ namespace Underprepaired.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private UnderprepairedDbContext _context;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UnderprepairedDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -38,8 +42,17 @@ namespace Underprepaired.Controllers
                     UserName = rvm.Email,
                     Email = rvm.Email,
                     FirstName = rvm.FirstName,
-                    LastName = rvm.LastName
+                    LastName = rvm.LastName,
                 };
+
+                Cart userCart = new Cart()
+                {
+                    Username = rvm.Email
+                };
+
+                await _context.Carts.AddAsync(userCart);
+                await _context.SaveChangesAsync();
+
 
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
@@ -48,7 +61,6 @@ namespace Underprepaired.Controllers
                     Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
 
                     Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
-
 
                     List<Claim> myClaims = new List<Claim>()
                     {
