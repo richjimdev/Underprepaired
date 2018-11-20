@@ -48,13 +48,13 @@ namespace Underprepaired
 
             services.AddDbContext<UnderprepairedDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseSqlServer(Configuration["ConnectionStrings:ProductionDB"]);
             }
             );
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:LocalIdentity"]);
+                options.UseSqlServer(Configuration["ConnectionStrings:ProductionIDDB"]);
             }
             );
 

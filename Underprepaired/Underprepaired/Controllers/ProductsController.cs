@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Underprepaired.Models.Interfaces;
 
 namespace Underprepaired.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IInventory _context;
@@ -21,11 +23,13 @@ namespace Underprepaired.Controllers
         }
 
         // GET: Products
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.GetAllProducts());
         }
 
+        [AllowAnonymous]
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {

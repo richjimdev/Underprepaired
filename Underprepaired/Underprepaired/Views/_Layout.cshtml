@@ -18,6 +18,7 @@
                 <p class="text-light my-auto">
                     Logged In As: @User.Claims.First(name => name.Type == "FullName").Value!
                 </p>
+                <a class="nav-item nav-link" href="/products">Shop</a>
                 <form asp-action="Logout" asp-controller="Account" method="post">
                     <button class="btn btn-link" type="submit">Logout</button>
                 </form>
@@ -29,6 +30,7 @@
         <nav class="navbar navbar-dark bg-dark">
             <p class="navbar-brand my-auto">UnderprePAIRed!</p>
             <div class="row my-auto">
+                <a class="nav-item nav-link" href="/products">Shop</a>
                 <a class="nav-item nav-link" href="/account/login">Login</a>
                 <a class="nav-item nav-link" href="/account/register">Register</a>
             </div>
