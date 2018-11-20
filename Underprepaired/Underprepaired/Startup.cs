@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Underprepaired.Data;
 using Underprepaired.Models;
 using Underprepaired.Models.Handlers;
+using Underprepaired.Models.Interfaces;
+using Underprepaired.Models.Services;
 
 namespace Underprepaired
 {
@@ -46,22 +48,24 @@ namespace Underprepaired
 
             services.AddDbContext<UnderprepairedDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseSqlServer(Configuration["ConnectionStrings:ProductionDB"]);
             }
             );
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:LocalIdentity"]);
+                options.UseSqlServer(Configuration["ConnectionStrings:ProductionIDDB"]);
             }
             );
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new EmailRequirement()));
+                options.AddPolicy("FounderEmailPolicy", policy => policy.Requirements.Add(new EmailRequirement()));
             });
 
             services.AddScoped<IAuthorizationHandler, UnderprepairedEmailHandler>();
+            services.AddScoped<IInventory, InventoryService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

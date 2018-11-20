@@ -56,8 +56,6 @@ namespace Underprepaired.Controllers
                         emailClaim
                     };
 
-                    //await _userManager.AddClaimAsync(user, fullNameClaim);
-
                     await _userManager.AddClaimsAsync(user, myClaims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
@@ -111,6 +109,13 @@ namespace Underprepaired.Controllers
             await _signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "FounderEmailPolicy")]
+        public IActionResult Founder()
+        {
+            return View();
         }
     }
 }
