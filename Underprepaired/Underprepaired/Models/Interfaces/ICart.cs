@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 
 namespace Underprepaired.Models.Interfaces
 {
-    interface ICart
+    public interface ICart
     {
-        Task<Cart> GetCart(int id);
+        Task<Cart> GetCart(string username);
 
         Task<List<CartItem>> GetAllCartItems(Cart cart);
+
+        Task<CartItem> GetCartItem(int cartId, int productId);
 
         Task AddToCart(CartItem ci);
 

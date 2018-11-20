@@ -17,9 +17,14 @@ namespace Underprepaired.Models.Services
             _context = context;
         }
 
-        public async Task<Cart> GetCart(int id)
+        public async Task<Cart> GetCart(string username)
         {
-            return await _context.Carts.FirstOrDefaultAsync(x => x.ID == id);
+            return await _context.Carts.FirstOrDefaultAsync(x => x.Username == username);
+        }
+
+        public async Task<CartItem> GetCartItem(int cartId, int productId)
+        {
+            return await _context.CartItems.FindAsync(cartId, productId);
         }
         
         public async Task<List<CartItem>> GetAllCartItems(Cart cart)

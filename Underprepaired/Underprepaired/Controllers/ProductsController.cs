@@ -16,10 +16,12 @@ namespace Underprepaired.Controllers
     public class ProductsController : Controller
     {
         private readonly IInventory _context;
+        private ICart _cart;
 
-        public ProductsController(IInventory context)
+        public ProductsController(IInventory context, ICart cart)
         {
             _context = context;
+            _cart = cart;
         }
 
         // GET: Products
@@ -153,6 +155,42 @@ namespace Underprepaired.Controllers
         private bool ProductExists(int id)
         {
             return _context.GetProduct(id) != null;
+        }
+
+        private bool CartItemExists(int cartId, int productId)
+        {
+            return _cart.GetCartItem(cartId, productId) != null;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(string username, int productId)
+        {
+            if (ModelState.IsValid)
+            {
+                var cart = await _cart.GetCart(username);
+                var product = await _context.GetProduct(productId);
+                
+                if(CartItemExists(cart.ID, product.ID))
+                {
+                    var updateCI = await _cart.GetCartItem(cart.ID, product.ID);
+                    updateCI.Quantity++;
+                    await _cart.UpdateQuantity(updateCI);
+                }
+                else
+                {
+                    CartItem newCartItem = new CartItem()
+                    {
+                        CartID = cart.ID,
+                        ProductID = product.ID,
+                        Quantity = 1
+                    };
+
+                    await _cart.AddToCart(newCartItem);
+                }
+
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
