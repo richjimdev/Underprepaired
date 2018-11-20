@@ -7,12 +7,12 @@ namespace Underprepaired.Models.Interfaces
 {
     interface ICart
     {
+        Task<CartItem> GetAllCartItems(string username);
 
+        Task AddToCart(Product product);
 
-        Task<CartItem> GetAllCartItems(int id);
+        Task RemoveFromCart(int cartId, int productId);
 
-        Task GetCart(int id);
-
-
+        Task UpdateQuantity(int cartId, int productId, Product product);
     }
 }
