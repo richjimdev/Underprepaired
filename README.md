@@ -1,20 +1,11 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Underprepaired 
+Welcome to UnderprePAIRed! We specialize in giving you the yang to your yin. Come along and see if we can help you harmonize your sock drawer or find find your lonely mitten's soulmate.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Claims
+We are capturing Full Name, to be displayed when the user logs in. Email is also being captured, to be checked against our email polocy for Founder site priveledge.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Policies
+We are enforcing an email policy to check if users have an @underprepaired.shop email. We are calling these users "Founders"
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Deployed website
+Visit https://underprepaired.azurewebsites.net
