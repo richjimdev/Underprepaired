@@ -1,4 +1,7 @@
-﻿@model dynamic
+﻿@using Microsoft.AspNetCore.Identity
+@using Underprepaired.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@model dynamic
 
 <div class="w-25">
     <h3>Your Cart:</h3>
@@ -10,11 +13,13 @@
                 <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
                     @item.Product.Name
                 </a>
-                <form>
-                    Quantity: 
-                    <input type="number" value="@item.Quantity">
+                <form asp-action="UpdateQuantity" asp-controller="Cart">
+                    Quantity:
+                    <input type="number" name="quantity" value="@item.Quantity">
+                    <input type="hidden" name="prodID" value="@item.ProductID" />
+                    <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
                     <button>Update</button>
-                </form>                
+                </form>
             </div>
         }
     }

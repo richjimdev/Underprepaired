@@ -67,6 +67,21 @@ namespace Underprepaired.Controllers
             }
             return RedirectToAction("Index", "Cart", new { username = username });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int prodID, string username, int quantity)
+        {
+            Cart userCart = await _cart.GetCart(username);
+
+            CartItem item = await _cart.GetCartItem(userCart.ID, prodID);
+
+            item.Quantity = quantity;
+
+            await _cart.UpdateQuantity(item);
+
+            return RedirectToAction("Index", "Cart", new { username = username });
+        }
+
         //Task<Cart> GetCart(int id);
 
         //Task<List<CartItem>> GetAllCartItems(Cart cart);
@@ -74,7 +89,5 @@ namespace Underprepaired.Controllers
         //Task AddToCart(CartItem ci);
 
         //Task RemoveFromCart(int cartId, int productId);
-
-        //Task UpdateQuantity(CartItem ci);
     }
 }
