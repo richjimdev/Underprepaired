@@ -3,20 +3,92 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model dynamic
 
-<div class="w-25">
-    <h3>Your Cart:</h3>
-    @foreach (var item in Model.CartItems)
-    {
-        if (item.Product != null)
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="fa fa-gift bigicon"></span> Items in Cart<span class="caret"></span></a>
+    <ul class="dropdown-menu dropdown-cart" role="menu">
+        @foreach (var item in Model.CartItems)
         {
-            <ul>
-                <a asp-action="Details" asp-route-id="@item.ProductID">
-                    <li class="list-group-item list-group-item-action">
-                        @item.Product.Name
-                    </li>
-                </a>
-                <li class="list-group-item">Quantity: @item.Quantity</li>
-            </ul>
+            if (item.Product != null)
+            {
+                <li>
+                    <span class="item">
+                        <span class="item-left">
+                            <img src="@item.Product.ImageURL" width="50" alt="" />
+                            <span class="item-info">
+                                <span>@item.Product.Name</span>
+                                <span>price: @item.Product.Price</span>
+                                <span>Qty: @item.Quantity</span>
+                            </span>
+                        </span>
+                        <span class="item-right">
+                            <button class="btn btn-danger  fa fa-close"></button>
+                        </span>
+                    </span>
+                </li>
+            }
         }
+
+    </ul>
+</li>
+
+<style>
+    .bigicon {
+        color: white;
     }
-</div>
+
+    .mix {
+        min-height: 370px;
+    }
+
+    ul.dropdown-cart {
+        min-width: 250px;
+        border: 2px solid #343434;
+        padding: 2px;
+        margin: 7px;
+        margin-top: 11px;
+    }
+
+        ul.dropdown-cart li .item {
+            display: block;
+            padding: 3px 10px;
+            margin: 3px 0;
+        }
+
+            ul.dropdown-cart li .item:hover {
+                background-color: #c3c5c5;
+            }
+
+            ul.dropdown-cart li .item:after {
+                visibility: hidden;
+                display: block;
+                font-size: 0;
+                content: " ";
+                clear: both;
+                height: 0;
+            }
+
+        ul.dropdown-cart li .item-left {
+            float: left;
+        }
+
+            ul.dropdown-cart li .item-left img,
+            ul.dropdown-cart li .item-left span.item-info {
+                float: left;
+            }
+
+            ul.dropdown-cart li .item-left span.item-info {
+                margin-left: 10px;
+            }
+
+                ul.dropdown-cart li .item-left span.item-info span {
+                    display: block;
+                }
+
+        ul.dropdown-cart li .item-right {
+            float: right;
+        }
+
+            ul.dropdown-cart li .item-right button {
+                margin-top: 14px;
+            }
+</style>    
