@@ -50,7 +50,8 @@ namespace Underprepaired.Controllers
                     Username = rvm.Email
                 };
 
-                await _context.Carts.AddAsync(userCart);
+                _context.Carts.Add(userCart);
+                //await _context.Carts.AddAsync(userCart);
                 await _context.SaveChangesAsync();
 
 

@@ -158,10 +158,10 @@ namespace Underprepaired.Controllers
             return _context.GetProduct(id) != null;
         }
 
-        private bool CartItemExists(int cartId, int productId)
-        {
-            return _cart.GetCartItem(cartId, productId) != null;
-        }
+        //private async bool CartItemExists(int cartId, int productId)
+        //{
+        //    return await _cart.GetCartItem(cartId, productId) != null;
+        //}
 
         [HttpPost]
         public async Task<IActionResult> AddToCart(string username, int productId)
@@ -171,9 +171,10 @@ namespace Underprepaired.Controllers
                 var cart = await _cart.GetCart(username);
                 var product = await _context.GetProduct(productId);
                 
-                if(CartItemExists(cart.ID, product.ID))
+                var updateCI = await _cart.GetCartItem(cart.ID, product.ID);
+                
+                if (updateCI != null)
                 {
-                    var updateCI = await _cart.GetCartItem(cart.ID, product.ID);
                     updateCI.Quantity++;
                     await _cart.UpdateQuantity(updateCI);
                 }
