@@ -5,11 +5,14 @@
 
 <div class="w-25">
     <h3>Your Cart:</h3>
+    @{ decimal total = 0;}
+
     @foreach (var item in Model.CartItems)
     {
         if (item.Product != null)
         {
     <div>
+        <img src="@item.Product.ImageURL" width="80" alt="" />
         <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
             @item.Product.Name
         </a>
@@ -26,7 +29,17 @@
             <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
             <button>Delete</button>
         </form>
+        <span>price: $@item.Product.Price</span>
+        <span>Qty: @item.Quantity</span>
+
+        <span>subtotal: $@(item.Product.Price * item.Quantity)</span>
     </div>
+
+            total += item.Product.Price * item.Quantity;
+
+            <hr />
         }
     }
+
+    <p> Grand Total: $@total  </p>
 </div>

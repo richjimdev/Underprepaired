@@ -26,7 +26,7 @@
                                 </a>
                                 <span>price: $@item.Product.Price</span>
                                 <span>subtotal: $@(item.Product.Price * item.Quantity)</span>
-                                <span>Qty: $@item.Quantity</span>
+                                <span>Qty: @item.Quantity</span>
                             </span>
                         </span>
                         <span class="item-right">
@@ -34,6 +34,7 @@
                         </span>
                     </span>
                 </li>
+
                 total += item.Product.Price * item.Quantity;
             }
         }
