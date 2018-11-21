@@ -7,11 +7,11 @@
         if (item.Product != null)
         {
             <ul>
-                @*<a asp-action="Details" asp-route-id="@item.ProductID">*@
+                <a asp-action="Details" asp-route-id="@item.ProductID">
                     <li class="list-group-item list-group-item-action">
                         @item.Product.Name
                     </li>
-                @*</a>*@
+                </a>
                 <li class="list-group-item">Quantity: @item.Quantity</li>
             </ul>
         }
