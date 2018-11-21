@@ -1,19 +1,29 @@
-﻿@model List<Underprepaired.Models.CartItem>
+﻿@using Microsoft.AspNetCore.Identity
+@using Underprepaired.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@model List<Underprepaired.Models.CartItem>
 
-<div class="w-25">
-    <h3>Your Cart:</h3>
-    @foreach (var item in Model)
-    {
-        if (item.Product != null)
+
+<form asp-action="Index" asp-controller="Cart">
+    <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+    <button>Cart</button>
+</form>
+@*<a asp-action="Cart" asp-controller="Index" value="@SignInManager.UserManager.GetUserName(User)">Cart: @Model.Count</a>*@
+
+@*<div class="w-25">
+        <h3>Your Cart:</h3>
+        @foreach (var item in Model)
         {
-            <ul>
-                <a asp-action="Details" asp-route-id="@item.ProductID">
-                    <li class="list-group-item list-group-item-action">
-                        @item.Product.Name
-                    </li>
-                </a>
-                <li class="list-group-item">Quantity: @item.Quantity</li>
-            </ul>
+            if (item.Product != null)
+            {
+                <ul>
+                    <a asp-action="Details" asp-route-id="@item.ProductID">
+                        <li class="list-group-item list-group-item-action">
+                            @item.Product.Name
+                        </li>
+                    </a>
+                    <li class="list-group-item">Quantity: @item.Quantity</li>
+                </ul>
+            }
         }
-    }
-</div>
+    </div>*@

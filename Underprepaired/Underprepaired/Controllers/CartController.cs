@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Underprepaired.Models;
 using Underprepaired.Models.Interfaces;
 
 namespace Underprepaired.Controllers
@@ -16,9 +17,11 @@ namespace Underprepaired.Controllers
             _cart = cart;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string username)
         {
-            return View();
+            Cart cart = await _cart.GetCart(username);
+            List<CartItem> items = _cart.GetAllCartItems(cart);
+            return View(items);
         }
 
 
