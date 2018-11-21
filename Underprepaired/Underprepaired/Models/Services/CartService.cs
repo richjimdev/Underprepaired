@@ -24,7 +24,7 @@ namespace Underprepaired.Models.Services
 
         public async Task<CartItem> GetCartItem(int cartId, int productId)
         {
-            return await _context.CartItems.FindAsync(cartId, productId);
+            return await _context.CartItems.FindAsync(productId, cartId);
         }
         
         public async Task<List<CartItem>> GetAllCartItems(Cart cart)

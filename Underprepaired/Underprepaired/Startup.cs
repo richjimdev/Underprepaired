@@ -65,7 +65,7 @@ namespace Underprepaired
 
             services.AddScoped<IAuthorizationHandler, UnderprepairedEmailHandler>();
             services.AddScoped<IInventory, InventoryService>();
-
+            services.AddScoped<ICart, CartService> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
