@@ -16,12 +16,10 @@ namespace Underprepaired.Controllers
     public class ProductsController : Controller
     {
         private readonly IInventory _context;
-        private ICart _cart;
 
-        public ProductsController(IInventory context, ICart cart)
+        public ProductsController(IInventory context)
         {
             _context = context;
-            _cart = cart;
         }
 
         // GET: Products
