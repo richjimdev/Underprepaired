@@ -9,6 +9,7 @@ namespace Underprepaired.Models
 {
     public class Product
     {
+        // Primary key
         public int ID { get; set; }
 
         public string Name { get; set; }
@@ -18,5 +19,8 @@ namespace Underprepaired.Models
         public decimal Price { get; set; }
 
         public string ImageURL { get; set; }
+
+        // Nav Property
+        public ICollection<CartItem> CartItem { get; set; }
     }
 }
