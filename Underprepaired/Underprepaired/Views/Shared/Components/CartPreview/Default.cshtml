@@ -3,9 +3,13 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model dynamic
 
+
+
 <li class="dropdown nav-item nav-link">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="fa fa-gift bigicon"></span> Items in Cart<span class="caret"></span></a>
     <ul class="dropdown-menu dropdown-cart" role="menu">
+        @{ decimal total = 0;}
+        
         @foreach (var item in Model.CartItems)
         {
             if (item.Product != null)
@@ -20,8 +24,9 @@
                                         @item.Product.Name
                                     </span>
                                 </a>
-                                <span>price: @item.Product.Price</span>
-                                <span>Qty: @item.Quantity</span>
+                                <span>price: $@item.Product.Price</span>
+                                <span>subtotal: $@(item.Product.Price * item.Quantity)</span>
+                                <span>Qty: $@item.Quantity</span>
                             </span>
                         </span>
                         <span class="item-right">
@@ -29,8 +34,11 @@
                         </span>
                     </span>
                 </li>
+                total += item.Product.Price * item.Quantity;
             }
         }
+
+        <p> Grand Total: $@total  </p>
         <form asp-action="Index" asp-controller="Cart">
             <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
             <button class="btn btn-link">View Cart</button>

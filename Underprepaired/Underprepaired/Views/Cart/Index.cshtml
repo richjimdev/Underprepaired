@@ -9,18 +9,24 @@
     {
         if (item.Product != null)
         {
-            <div>
-                <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
-                    @item.Product.Name
-                </a>
-                <form asp-action="UpdateQuantity" asp-controller="Cart">
-                    Quantity:
-                    <input type="number" name="quantity" value="@item.Quantity">
-                    <input type="hidden" name="prodID" value="@item.ProductID" />
-                    <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
-                    <button>Update</button>
-                </form>
-            </div>
+    <div>
+        <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
+            @item.Product.Name
+        </a>
+        <form asp-action="UpdateQuantity" asp-controller="Cart">
+            Quantity:
+            <input type="number" name="quantity" value="@item.Quantity">
+            <input type="hidden" name="prodID" value="@item.ProductID" />
+            <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+            <button>Update</button>
+        </form>
+        <form asp-action="DeleteItem" asp-controller="Cart">
+            <input type="hidden" name="cartID" value="@item.CartID" />
+            <input type="hidden" name="prodID" value="@item.ProductID" />
+            <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+            <button>Delete</button>
+        </form>
+    </div>
         }
     }
 </div>

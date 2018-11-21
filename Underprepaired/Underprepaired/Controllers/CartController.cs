@@ -73,11 +73,25 @@ namespace Underprepaired.Controllers
         {
             Cart userCart = await _cart.GetCart(username);
 
-            CartItem item = await _cart.GetCartItem(userCart.ID, prodID);
+            if (quantity <= 0)
+            {
+                await DeleteItem(username, userCart.ID, prodID);
+            }
+            else
+            {
+                CartItem item = await _cart.GetCartItem(userCart.ID, prodID);
 
-            item.Quantity = quantity;
+                item.Quantity = quantity;
 
-            await _cart.UpdateQuantity(item);
+                await _cart.UpdateQuantity(item);
+            }
+
+            return RedirectToAction("Index", "Cart", new { username = username });
+        }
+
+        public async Task<IActionResult> DeleteItem(string username, int cartID, int prodID)
+        {
+            await _cart.RemoveFromCart(cartID, prodID);
 
             return RedirectToAction("Index", "Cart", new { username = username });
         }

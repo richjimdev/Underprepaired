@@ -40,7 +40,7 @@ namespace Underprepaired.Models.Services
 
         public async Task RemoveFromCart(int cartId, int productId)
         {
-            var cartItem = await _context.CartItems.FindAsync(cartId, productId);
+            var cartItem = await _context.CartItems.FindAsync(productId, cartId);
             _context.CartItems.Remove(cartItem);
             await _context.SaveChangesAsync();
 
