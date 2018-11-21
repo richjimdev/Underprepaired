@@ -40,6 +40,7 @@ namespace Underprepaired.Controllers
                 return NotFound();
             }
 
+            //var allProducts = await _context.GetAllProducts();
             Product product = await _context.GetProduct(id);
 
             if (product == null)
@@ -193,5 +194,6 @@ namespace Underprepaired.Controllers
 
             return RedirectToAction("Index");
         }
+
     }
 }

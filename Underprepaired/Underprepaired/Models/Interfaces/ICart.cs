@@ -9,7 +9,7 @@ namespace Underprepaired.Models.Interfaces
     {
         Task<Cart> GetCart(string username);
 
-        Task<List<CartItem>> GetAllCartItems(Cart cart);
+        List<CartItem> GetAllCartItems(Cart cart);
 
         Task<CartItem> GetCartItem(int cartId, int productId);
 

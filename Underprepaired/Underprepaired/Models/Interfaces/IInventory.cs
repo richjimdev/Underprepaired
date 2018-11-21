@@ -11,6 +11,8 @@ namespace Underprepaired.Models.Interfaces
 
         Task<Product> GetProduct(int? id);
 
+        Task<List<Product>> GetSingleProductList(int? id);
+
         Task CreateProduct(Product product);
 
         Task UpdateProduct(Product product);
