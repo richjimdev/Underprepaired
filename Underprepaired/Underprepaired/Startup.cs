@@ -65,6 +65,7 @@ namespace Underprepaired
 
             services.AddScoped<IAuthorizationHandler, UnderprepairedEmailHandler>();
             services.AddScoped<IInventory, InventoryService>();
+            services.AddScoped<ICart, CartService>();
 
         }
 
