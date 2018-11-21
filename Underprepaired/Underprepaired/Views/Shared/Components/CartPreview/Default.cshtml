@@ -4,13 +4,16 @@
     <h3>Your Cart:</h3>
     @foreach (var item in Model)
     {
-        <ul>
-            <a asp-action="Details" asp-route-id="@item.ProductID">
-                <li class="list-group-item list-group-item-action">
-                    @item.Product.Name
-                </li>
-            </a>
-            <li class="list-group-item">Quantity: @item.Quantity</li>
-        </ul>
+        if (item.Product != null)
+        {
+            <ul>
+                @*<a asp-action="Details" asp-route-id="@item.ProductID">*@
+                    <li class="list-group-item list-group-item-action">
+                        @item.Product.Name
+                    </li>
+                @*</a>*@
+                <li class="list-group-item">Quantity: @item.Quantity</li>
+            </ul>
+        }
     }
 </div>

@@ -26,14 +26,22 @@ namespace Underprepaired.Models.Services
             return await _context.Products.ToListAsync();
         }
 
+        public async Task<Product> GetProduct(int? id)
+        {
+            return await _context.Products.FirstOrDefaultAsync(x => x.ID == id);
+        }
+
         /// <summary>
         /// Gets the product by id
         /// </summary>
         /// <param name="id">The identifier</param>
         /// <returns></returns>
-        public async Task<Product> GetProduct(int? id)
+        public async Task<List<Product>> GetSingleProductList(int? id)
         {
-            return await _context.Products.FirstOrDefaultAsync(x => x.ID == id);
+            var result = await _context.Products.FindAsync(id);
+            List<Product> list = new List<Product>();
+            list.Add(result);
+            return list;
         }
 
         /// <summary>

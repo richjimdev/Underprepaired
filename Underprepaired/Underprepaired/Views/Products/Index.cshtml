@@ -7,12 +7,6 @@
 }
 <h2>Index</h2>
 
-@if (SignInManager.IsSignedIn(User))
-{
-    <div>
-        @await Component.InvokeAsync("CartPreview", @SignInManager.UserManager.GetUserName(User))
-    </div>
-}
 
 <p>
     <a asp-action="Create">Create New</a>

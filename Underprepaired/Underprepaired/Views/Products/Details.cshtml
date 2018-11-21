@@ -1,10 +1,13 @@
-﻿@model Underprepaired.Models.Product
+﻿@using Microsoft.AspNetCore.Identity
+@using Underprepaired.Models
+@model Underprepaired.Models.Product
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     ViewData["Title"] = "Details";
 }
-
 <h2>Details</h2>
+
 
 <div>
     <h4>Product</h4>
@@ -37,6 +40,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @*<a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>*@
 </div>

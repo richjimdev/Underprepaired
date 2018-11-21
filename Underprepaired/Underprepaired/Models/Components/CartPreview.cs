@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +11,18 @@ namespace Underprepaired.Models.Components
 {
     public class CartPreview : ViewComponent
     {
-        private ICart _context;
+        private UnderprepairedDbContext _context;
 
-        public CartPreview(ICart context)
+        public CartPreview(UnderprepairedDbContext context)
         {
             _context = context;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string username)
         {
-            var cart = await _context.GetCart(username);
+            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.Username == username);
 
-            var ci = await _context.GetAllCartItems(cart);
+            List<CartItem> ci = await _context.CartItems.Where(y => y.CartID == cart.ID).ToListAsync();
 
             return View(ci);
         }

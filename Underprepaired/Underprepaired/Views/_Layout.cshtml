@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Underprepaired.Models
 @inject SignInManager<ApplicationUser> SignInManager
+
 <!DOCTYPE html>
 
 <html>
@@ -24,6 +25,13 @@
                 </form>
             </div>
         </nav>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div>
+                @await Component.InvokeAsync("CartPreview", @SignInManager.UserManager.GetUserName(User))
+            </div>
+        }
     }
     else
     {
