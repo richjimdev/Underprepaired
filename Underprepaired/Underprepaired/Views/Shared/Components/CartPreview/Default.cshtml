@@ -3,7 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model dynamic
 
-<li class="dropdown">
+<li class="dropdown nav-item nav-link">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="fa fa-gift bigicon"></span> Items in Cart<span class="caret"></span></a>
     <ul class="dropdown-menu dropdown-cart" role="menu">
         @foreach (var item in Model.CartItems)
@@ -15,7 +15,11 @@
                         <span class="item-left">
                             <img src="@item.Product.ImageURL" width="50" alt="" />
                             <span class="item-info">
-                                <span>@item.Product.Name</span>
+                                <a asp-action="Details" asp-controller="Products" asp-route-id="@item.Product.ID">
+                                    <span>
+                                        @item.Product.Name
+                                    </span>
+                                </a>
                                 <span>price: @item.Product.Price</span>
                                 <span>Qty: @item.Quantity</span>
                             </span>
@@ -27,6 +31,10 @@
                 </li>
             }
         }
+        <form asp-action="Index" asp-controller="Cart">
+            <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+            <button class="btn btn-link">View Cart</button>
+        </form>
 
     </ul>
 </li>
