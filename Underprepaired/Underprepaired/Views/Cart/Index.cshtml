@@ -6,14 +6,16 @@
     {
         if (item.Product != null)
         {
-            <ul>
+            <div>
                 <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
-                    <li class="list-group-item list-group-item-action">
-                        @item.Product.Name
-                    </li>
+                    @item.Product.Name
                 </a>
-                <li class="list-group-item">Quantity: @item.Quantity</li>
-            </ul>
+                <form>
+                    Quanitity: 
+                    <input type="number" value="@item.Quantity">
+                    <button>Update</button>
+                </form>                
+            </div>
         }
     }
 </div>

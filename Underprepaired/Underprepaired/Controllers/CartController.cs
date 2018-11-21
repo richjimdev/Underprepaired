@@ -37,7 +37,36 @@ namespace Underprepaired.Controllers
             return View(Models);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(string username, int productId)
+        {
+            if (ModelState.IsValid)
+            {
+                var cart = await _cart.GetCart(username);
+                var product = await _inventory.GetProduct(productId);
 
+                var updateCI = await _cart.GetCartItem(cart.ID, product.ID);
+
+                if (updateCI != null)
+                {
+                    updateCI.Quantity++;
+                    await _cart.UpdateQuantity(updateCI);
+                }
+                else
+                {
+                    CartItem newCartItem = new CartItem()
+                    {
+                        CartID = cart.ID,
+                        ProductID = product.ID,
+                        Quantity = 1
+                    };
+
+                    await _cart.AddToCart(newCartItem);
+                }
+
+            }
+            return RedirectToAction("Index", "Cart", new { username = username });
+        }
         //Task<Cart> GetCart(int id);
 
         //Task<List<CartItem>> GetAllCartItems(Cart cart);

@@ -14,7 +14,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <nav class="navbar navbar-dark bg-dark">
-            <p class="navbar-brand my-auto">UnderprePAIRed!</p>
+            <a asp-action="Index" asp-controller="Home" class="navbar-brand my-auto">UnderprePAIRed!</a>
             <div class="form-inline my-2 my-lg-0">
                 <p class="text-light my-auto">
                     Logged In As: @User.Claims.First(name => name.Type == "FullName").Value
@@ -26,13 +26,6 @@
                 </form>
             </div>
         </nav>
-
-            @*<div>
-                @await Component.InvokeAsync("CartPreview", @SignInManager.UserManager.GetUserName(User))
-            </div>*@
-        @*@if (SignInManager.IsSignedIn(User))
-        {
-        }*@
     }
     else
     {
