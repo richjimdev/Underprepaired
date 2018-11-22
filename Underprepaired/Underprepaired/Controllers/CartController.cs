@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -9,6 +10,7 @@ using Underprepaired.Models.Interfaces;
 
 namespace Underprepaired.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private ICart _cart;
