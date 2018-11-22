@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -9,6 +10,7 @@ using Underprepaired.Models.Interfaces;
 
 namespace Underprepaired.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private ICart _cart;
@@ -37,6 +39,64 @@ namespace Underprepaired.Controllers
             return View(Models);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(string username, int productId)
+        {
+            if (ModelState.IsValid)
+            {
+                var cart = await _cart.GetCart(username);
+                var product = await _inventory.GetProduct(productId);
+
+                var updateCI = await _cart.GetCartItem(cart.ID, product.ID);
+
+                if (updateCI != null)
+                {
+                    updateCI.Quantity++;
+                    await _cart.UpdateQuantity(updateCI);
+                }
+                else
+                {
+                    CartItem newCartItem = new CartItem()
+                    {
+                        CartID = cart.ID,
+                        ProductID = product.ID,
+                        Quantity = 1
+                    };
+
+                    await _cart.AddToCart(newCartItem);
+                }
+
+            }
+            return RedirectToAction("Index", "Cart", new { username = username });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int prodID, string username, int quantity)
+        {
+            Cart userCart = await _cart.GetCart(username);
+
+            if (quantity <= 0)
+            {
+                await DeleteItem(username, userCart.ID, prodID);
+            }
+            else
+            {
+                CartItem item = await _cart.GetCartItem(userCart.ID, prodID);
+
+                item.Quantity = quantity;
+
+                await _cart.UpdateQuantity(item);
+            }
+
+            return RedirectToAction("Index", "Cart", new { username = username });
+        }
+
+        public async Task<IActionResult> DeleteItem(string username, int cartID, int prodID)
+        {
+            await _cart.RemoveFromCart(cartID, prodID);
+
+            return RedirectToAction("Index", "Cart", new { username = username });
+        }
 
         //Task<Cart> GetCart(int id);
 
@@ -45,7 +105,5 @@ namespace Underprepaired.Controllers
         //Task AddToCart(CartItem ci);
 
         //Task RemoveFromCart(int cartId, int productId);
-
-        //Task UpdateQuantity(CartItem ci);
     }
 }
