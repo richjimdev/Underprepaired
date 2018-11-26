@@ -45,6 +45,9 @@
     <form asp-controller="Cart" asp-action="AddToCart">
         <input type="hidden" name="productId" value="@Model.ID" />
         <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+        <label for="quantity">
+            Quantity: <input type="number" name="quantity" min="1" value="1" />
+        </label>
         <button>Add to cart</button>
     </form>
 </div>
