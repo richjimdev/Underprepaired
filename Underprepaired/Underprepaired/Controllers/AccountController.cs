@@ -75,6 +75,8 @@ namespace Underprepaired.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
+                    await _email.SendEmailAsync(rvm.Email, "Registration Complete", "<p> Thanks for registering! </p>");
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -105,8 +107,6 @@ namespace Underprepaired.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _email.SendEmailAsync(lvm.Email, "Thanks for logging in", "<p> Hello, this works </p>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
