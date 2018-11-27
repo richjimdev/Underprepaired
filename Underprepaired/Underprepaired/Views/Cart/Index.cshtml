@@ -3,50 +3,6 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model dynamic
 
-@*<div class="w-25">
-    <h3>Your Cart:</h3>
-    @{ decimal total = 0;}
-
-    @foreach (var item in Model.CartItems)
-    {
-        if (item.Product != null)
-        {
-    <div>
-        <img src="@item.Product.ImageURL" width="80" alt="" />
-        <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
-            @item.Product.Name
-        </a>
-        <form asp-action="UpdateQuantity" asp-controller="Cart">
-            Quantity:
-            <input type="number" name="quantity" value="@item.Quantity">
-            <input type="hidden" name="prodID" value="@item.ProductID" />
-            <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
-            <button>Update</button>
-        </form>
-        <form asp-action="DeleteItem" asp-controller="Cart">
-            <input type="hidden" name="cartID" value="@item.CartID" />
-            <input type="hidden" name="prodID" value="@item.ProductID" />
-            <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
-            <button>Delete</button>
-        </form>
-        <span>price: $@item.Product.Price</span>
-        <span>Qty: @item.Quantity</span>
-
-        <span>subtotal: $@(item.Product.Price * item.Quantity)</span>
-    </div>
-
-            total += item.Product.Price * item.Quantity;
-
-            <hr />
-        }
-    }
-
-    <p> Grand Total: $@total  </p>
-</div>*@
-
-
-
-
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -79,8 +35,6 @@
                                                     @item.Product.Name
                                                 </a>
                                             </h4>
-                                            @*<h5 class="media-heading"> by <a href="#">Brand name</a></h5>
-                                <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>*@
                                         </div>
                                     </div>
                                 </td>
@@ -137,9 +91,12 @@
                             <a class="btn btn-secondary" href="/products">Continue Shopping</a>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-success">
-                                Checkout <span class="glyphicon glyphicon-play"></span>
-                            </button>
+                            <form asp-controller="Checkout" asp-action="Receipt">
+                                <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+                                <button class="btn btn-success">
+                                    Checkout <span class="glyphicon glyphicon-play"></span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
