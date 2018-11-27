@@ -73,8 +73,6 @@ namespace Underprepaired.Controllers
 
                     await _userManager.AddClaimsAsync(user, myClaims);
 
-                    await _email.SendEmailAsync(user.Email, "Thanks for logging in", "<p> Hello, this works </p>");
-
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("Index", "Home");
@@ -107,6 +105,8 @@ namespace Underprepaired.Controllers
 
                 if (result.Succeeded)
                 {
+                    await _email.SendEmailAsync(lvm.Email, "Thanks for logging in", "<p> Hello, this works </p>");
+
                     return RedirectToAction("Index", "Home");
                 }
                 else

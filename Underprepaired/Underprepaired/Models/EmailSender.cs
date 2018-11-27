@@ -5,6 +5,7 @@ using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace Underprepaired.Models
@@ -24,10 +25,10 @@ namespace Underprepaired.Models
 
             var msg = new SendGridMessage();
 
-            msg.SetFrom("admin@underprepaired.shop");
+            msg.SetFrom("admin@underprepaired.shop", "Underprepaired");
 
-            msg.AddTo(email);
-            msg.AddContent(MimeType.Html, htmlMessage);
+            msg.AddTo(new EmailAddress(email));
+            msg.AddContent(MimeType.Text, htmlMessage);
 
             await client.SendEmailAsync(msg);
         }
