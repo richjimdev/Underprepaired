@@ -20,21 +20,21 @@
                     Logged In As: @User.Claims.First(name => name.Type == "FullName").Value
                 </p>
                     @await Component.InvokeAsync("CartPreview", @SignInManager.UserManager.GetUserName(User))
-                <a class="nav-item nav-link" href="/products">Shop</a>
+                <a class="nav-item nav-link text-light" href="/products">Shop</a>
                 <form asp-action="Logout" asp-controller="Account" method="post">
-                    <button class="btn btn-link" type="submit">Logout</button>
+                    <button class="btn btn-link text-light" type="submit">Logout</button>
                 </form>
             </div>
         </nav>
     }
     else
     {
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark text-light">
             <p class="navbar-brand my-auto">UnderprePAIRed!</p>
             <div class="row my-auto">
-                <a class="nav-item nav-link" href="/products">Shop</a>
-                <a class="nav-item nav-link" href="/account/login">Login</a>
-                <a class="nav-item nav-link" href="/account/register">Register</a>
+                <a class="nav-item nav-link text-light" href="/products">Shop</a>
+                <a class="nav-item nav-link text-light" href="/account/login">Login</a>
+                <a class="nav-item nav-link text-light" href="/account/register">Register</a>
             </div>
         </nav>
     }
