@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,14 @@ namespace Underprepaired.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private UnderprepairedDbContext _context;
+        private IEmailSender _email;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UnderprepairedDbContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UnderprepairedDbContext context, IEmailSender email)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _email = email;
         }
 
         [HttpGet]
@@ -51,7 +54,6 @@ namespace Underprepaired.Controllers
                 };
 
                 _context.Carts.Add(userCart);
-                //await _context.Carts.AddAsync(userCart);
                 await _context.SaveChangesAsync();
 
 
@@ -103,6 +105,8 @@ namespace Underprepaired.Controllers
 
                 if (result.Succeeded)
                 {
+                    await _email.SendEmailAsync(lvm.Email, "Thanks for logging in", "<p> Hello, this works </p>");
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
