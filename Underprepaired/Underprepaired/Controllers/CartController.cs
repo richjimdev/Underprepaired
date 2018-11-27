@@ -40,7 +40,7 @@ namespace Underprepaired.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(string username, int productId)
+        public async Task<IActionResult> AddToCart(string username, int productId, int quantity)
         {
             if (ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace Underprepaired.Controllers
 
                 if (updateCI != null)
                 {
-                    updateCI.Quantity++;
+                    updateCI.Quantity += quantity;
                     await _cart.UpdateQuantity(updateCI);
                 }
                 else
@@ -60,7 +60,7 @@ namespace Underprepaired.Controllers
                     {
                         CartID = cart.ID,
                         ProductID = product.ID,
-                        Quantity = 1
+                        Quantity = quantity
                     };
 
                     await _cart.AddToCart(newCartItem);
