@@ -97,13 +97,5 @@ namespace Underprepaired.Controllers
 
             return RedirectToAction("Index", "Cart", new { username = username });
         }
-
-        //Task<Cart> GetCart(int id);
-
-        //Task<List<CartItem>> GetAllCartItems(Cart cart);
-
-        //Task AddToCart(CartItem ci);
-
-        //Task RemoveFromCart(int cartId, int productId);
     }
 }

@@ -23,14 +23,13 @@ namespace Underprepaired.Models
         {
             var client = new SendGridClient(Configuration["SendGrid_Api_Key"]);
 
-            var msg = new SendGridMessage();
+            var from = new EmailAddress("admin@Underprepaired.shop");
 
-            msg.SetFrom("admin@underprepaired.shop", "Underprepaired");
+            EmailAddress to = new EmailAddress(email);
 
-            msg.AddTo(new EmailAddress(email));
-            msg.AddContent(MimeType.Text, htmlMessage);
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlMessage);
 
-            await client.SendEmailAsync(msg);
+            var response = await client.SendEmailAsync(msg);
         }
     }
 }
