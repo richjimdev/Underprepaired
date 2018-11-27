@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,6 +67,7 @@ namespace Underprepaired
             services.AddScoped<IAuthorizationHandler, UnderprepairedEmailHandler>();
             services.AddTransient<IInventory, InventoryService>();
             services.AddTransient<ICart, CartService>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
         }
 
