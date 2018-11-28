@@ -29,12 +29,21 @@ namespace Underprepaired.Controllers
             _email = email;
         }
 
+        /// <summary>
+        /// Renders initial register view
+        /// </summary>
+        /// <returns>view</returns>
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        /// <summary>
+        /// Registers a new user
+        /// </summary>
+        /// <param name="rvm">view model for registration</param>
+        /// <returns>redirects to home page</returns>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel rvm)
         {
@@ -92,12 +101,21 @@ namespace Underprepaired.Controllers
             return View(rvm);
         }
 
+        /// <summary>
+        /// Renders view for user login
+        /// </summary>
+        /// <returns>view</returns>
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        /// Logins the user
+        /// </summary>
+        /// <param name="lvm">login view model</param>
+        /// <returns>redirects user to home page</returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
@@ -119,6 +137,10 @@ namespace Underprepaired.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Logout the user
+        /// </summary>
+        /// <returns>redirects to the home page</returns>
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Logout()
@@ -128,6 +150,10 @@ namespace Underprepaired.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Renders secret founder page
+        /// </summary>
+        /// <returns>founder view</returns>
         [HttpGet]
         [Authorize(Policy = "FounderEmailPolicy")]
         public IActionResult Founder()
