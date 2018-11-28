@@ -8,6 +8,10 @@ namespace Underprepaired.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Renders home page
+        /// </summary>
+        /// <returns>view</returns>
         public IActionResult Index()
         {
             return View();

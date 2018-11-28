@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Underprepaired.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@model dynamic
+
+
+
+<li class="dropdown nav-item nav-link">
+    <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-expanded="false"> </span> <span class="glyphicon">&#128722;</span> Cart (@Model.CartItems.Count)<span class="caret"></span></a>
+    <ul class="dropdown-menu dropdown-cart" role="menu">
+        @{ decimal total = 0;}
+        
+        @foreach (var item in Model.CartItems)
+        {
+            if (item.Product != null)
+            {
+                <li>
+                    <span class="item">
+                        <span class="item-left">
+                            <img src="@item.Product.ImageURL" width="50" alt="" />
+                            <span class="item-info">
+                                <a asp-action="Details" asp-controller="Products" asp-route-id="@item.Product.ID">
+                                    <span>
+                                        @item.Product.Name
+                                    </span>
+                                </a>
+                                <span>price: $@item.Product.Price</span>
+                                <span>subtotal: $@(item.Product.Price * item.Quantity)</span>
+                                <span>Qty: @item.Quantity</span>
+                            </span>
+                        </span>
+                    </span>
+                </li>
+
+                total += item.Product.Price * item.Quantity;
+            }
+        }
+
+        <p class="text-center mt-4"> Grand Total: $@total  </p>
+        <form asp-action="Index" class="text-center" asp-controller="Cart">
+            <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+            <button class="btn btn-primary" >View Cart</button>
+        </form>
+
+    </ul>
+</li>
+

@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Underprepaired.Data;
 using Underprepaired.Models;
+using Underprepaired.Models.Interfaces;
 using Underprepaired.Models.ViewModels;
 
 namespace Underprepaired.Controllers
@@ -15,19 +18,32 @@ namespace Underprepaired.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private UnderprepairedDbContext _context;
+        private IEmailSender _email;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UnderprepairedDbContext context, IEmailSender email)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
+            _email = email;
         }
 
+        /// <summary>
+        /// Renders initial register view
+        /// </summary>
+        /// <returns>view</returns>
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        /// <summary>
+        /// Registers a new user
+        /// </summary>
+        /// <param name="rvm">view model for registration</param>
+        /// <returns>redirects to home page</returns>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel rvm)
         {
@@ -38,8 +54,17 @@ namespace Underprepaired.Controllers
                     UserName = rvm.Email,
                     Email = rvm.Email,
                     FirstName = rvm.FirstName,
-                    LastName = rvm.LastName
+                    LastName = rvm.LastName,
                 };
+
+                Cart userCart = new Cart()
+                {
+                    Username = rvm.Email
+                };
+
+                _context.Carts.Add(userCart);
+                await _context.SaveChangesAsync();
+
 
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
@@ -48,7 +73,6 @@ namespace Underprepaired.Controllers
                     Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
 
                     Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
-
 
                     List<Claim> myClaims = new List<Claim>()
                     {
@@ -59,6 +83,8 @@ namespace Underprepaired.Controllers
                     await _userManager.AddClaimsAsync(user, myClaims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    await _email.SendEmailAsync(rvm.Email, "Registration Complete", "<p> Thanks for registering! </p>");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -75,12 +101,21 @@ namespace Underprepaired.Controllers
             return View(rvm);
         }
 
+        /// <summary>
+        /// Renders view for user login
+        /// </summary>
+        /// <returns>view</returns>
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        /// Logins the user
+        /// </summary>
+        /// <param name="lvm">login view model</param>
+        /// <returns>redirects user to home page</returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
@@ -102,6 +137,10 @@ namespace Underprepaired.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Logout the user
+        /// </summary>
+        /// <returns>redirects to the home page</returns>
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Logout()
@@ -111,6 +150,10 @@ namespace Underprepaired.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Renders secret founder page
+        /// </summary>
+        /// <returns>founder view</returns>
         [HttpGet]
         [Authorize(Policy = "FounderEmailPolicy")]
         public IActionResult Founder()

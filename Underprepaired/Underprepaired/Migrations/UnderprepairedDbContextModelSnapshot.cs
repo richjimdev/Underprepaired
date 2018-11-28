@@ -18,6 +18,34 @@ namespace Underprepaired.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Underprepaired.Models.Cart", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Underprepaired.Models.CartItem", b =>
+                {
+                    b.Property<int>("ProductID");
+
+                    b.Property<int>("CartID");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("ProductID", "CartID");
+
+                    b.HasIndex("CartID");
+
+                    b.ToTable("CartItems");
+                });
+
             modelBuilder.Entity("Underprepaired.Models.Product", b =>
                 {
                     b.Property<int>("ID")
@@ -48,6 +76,19 @@ namespace Underprepaired.Migrations
                         new { ID = 9, Description = "Sometimes all of those Big Macs don't do your figure any justice. The half-belt can be used to extend your current belt or maybe fix it. The ball is in your court now.", ImageURL = "/img/halfBelt.jpg", Name = "Half-Belt", Price = 14.99m },
                         new { ID = 10, Description = "Does your mug get too hot in the morning? Have you recently dropped your favorite sarcastic phrased mug only for the handle to be shattered in a million pieces? This mug handle fits great with the mug of your dreams so now you don't have throw it away while crying.", ImageURL = "/img/mugHandle.jpg", Name = "Mug Handle", Price = 4.99m }
                     );
+                });
+
+            modelBuilder.Entity("Underprepaired.Models.CartItem", b =>
+                {
+                    b.HasOne("Underprepaired.Models.Cart", "Cart")
+                        .WithMany("CartItem")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Underprepaired.Models.Product", "Product")
+                        .WithMany("CartItem")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

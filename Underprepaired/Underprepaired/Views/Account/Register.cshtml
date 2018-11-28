@@ -4,37 +4,52 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
+<section id="about" class="projects-section text-center">
+    <div class="container text-light">
+        <h2>Register</h2>
 
-<form method="post">
+        <form method="post">
 
-    <div asp-validation-summary="All"></div>
+            <div asp-validation-summary="All"></div>
 
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email"></span>
+            <div>
+
+            <label class="d-block mt-3" asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+            </div>
+
+            <div>
+
+            <label class="d-block mt-3" asp-for="FirstName"></label>
+            <input asp-for="FirstName" />
+            <span asp-validation-for="FirstName"></span>
+            </div>
+
+            <div>
+
+            <label class="d-block mt-3" asp-for="LastName"></label>
+            <input asp-for="LastName" />
+            <span asp-validation-for="LastName"></span>
+            </div>
+
+            <div>
+
+            <label class="d-block mt-3" asp-for="Password"></label>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+            </div>
+
+            <div>
+
+            <label class="d-block mt-3" asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword"></span>
+            </div>
 
 
-    <label asp-for="FirstName"></label>
-    <input asp-for="FirstName" />
-    <span asp-validation-for="FirstName"></span>
+            <button class="btn btn-primary mt-3" type="submit">Register!</button>
 
-
-    <label asp-for="LastName"></label>
-    <input asp-for="LastName" />
-    <span asp-validation-for="LastName"></span>
-
-
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password"></span>
-
-
-    <label asp-for="ConfirmPassword"></label>
-    <input asp-for="ConfirmPassword" />
-    <span asp-validation-for="ConfirmPassword"></span>
-
-
-    <button type="submit">Register!</button>
-
-</form>
+        </form>
+    </div>
+</section>
