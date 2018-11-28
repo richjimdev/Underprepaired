@@ -22,15 +22,24 @@ namespace Underprepaired.Controllers
             _context = context;
         }
 
-        // GET: Products
+        // GET: Products        
+        /// <summary>
+        /// Renders the all products shopping page
+        /// </summary>
+        /// <returns>returns view with product information</returns>
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.GetAllProducts());
         }
 
-        [AllowAnonymous]
         // GET: Products/Details/5
+        /// <summary>
+        /// Renders a product details page
+        /// </summary>
+        /// <param name="id">The product id</param>
+        /// <returns>redirects to the products details view</returns>
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,15 +58,22 @@ namespace Underprepaired.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
+        // GET: Products/Create        
+        /// <summary>
+        /// Renders the create a product view
+        /// </summary>
+        /// <returns>returns create view</returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Products/Create        
+        /// <summary>
+        /// Creates a new products
+        /// </summary>
+        /// <param name="product">The product</param>
+        /// <returns>product details view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,Description,Price,ImageURL")] Product product)
@@ -71,7 +87,12 @@ namespace Underprepaired.Controllers
             return View(product);
         }
 
-        // GET: Products/Edit/5
+        // GET: Products/Edit/5        
+        /// <summary>
+        /// Renders product edit page
+        /// </summary>
+        /// <param name="id">The id for the product</param>
+        /// <returns>returns product details page</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,9 +110,13 @@ namespace Underprepaired.Controllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Products/Edit/5        
+        /// <summary>
+        /// Edits the product
+        /// </summary>
+        /// <param name="id">The product id</param>
+        /// <param name="product">The product to be edited</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,Price,ImageURL")] Product product)
@@ -123,7 +148,12 @@ namespace Underprepaired.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
+        // GET: Products/Delete/5        
+        /// <summary>
+        /// Renders delete confirmation page
+        /// </summary>
+        /// <param name="id">The id for the product/param>
+        /// <returns>renders delete confirmation view</returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +171,12 @@ namespace Underprepaired.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
+        // POST: Products/Delete/5        
+        /// <summary>
+        /// Deletes the product
+        /// </summary>
+        /// <param name="id">The id of the product</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
