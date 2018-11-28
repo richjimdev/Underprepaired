@@ -7,23 +7,28 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="ml-auto mt-4">
-    <div class="float-left pl-5">
-        <img src="@Model.ImageURL" width="400"/>
-    </div>
 
-    <div class="ml-5 w-75 text-center">
-        <h2>@Model.Name</h2>
-        <p>@Model.Description</p>
-        <p>Price: $@Model.Price</p>
+<section id="about" class="projects-section text-center text-light">
+    <div class="container">
+        <div class="ml-auto mt-4">
+            <div class="float-left pl-5">
+                <img src="@Model.ImageURL" width="400" />
+            </div>
 
-        <form asp-controller="Cart" asp-action="AddToCart" class="mt-4">
-            <input type="hidden" name="productId" value="@Model.ID" />
-            <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
-            <label for="quantity">
-                Quantity: <input type="number" name="quantity" min="1" value="1" width="25"/>
-            </label>
-            <button class="">Add To Cart</button>
-        </form>
+            <div class="ml-5 w-75 text-center">
+                <h2>@Model.Name</h2>
+                <p>@Model.Description</p>
+                <p>Price: $@Model.Price</p>
+
+                <form asp-controller="Cart" asp-action="AddToCart" class="mt-4">
+                    <input type="hidden" name="productId" value="@Model.ID" />
+                    <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+                    <label for="quantity">
+                        Quantity: <input type="number" name="quantity" min="1" value="1" width="25" />
+                    </label>
+                    <button class="">Add To Cart</button>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+    </section>
