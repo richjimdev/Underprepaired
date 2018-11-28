@@ -35,11 +35,6 @@ namespace Underprepaired.Models.Components
 
             Models.AllProducts = allProducts;
 
-
-            //var cart = await _context.Carts.FirstOrDefaultAsync(x => x.Username == username);
-
-            //List<CartItem> ci = await _context.CartItems.Where(y => y.CartID == cart.ID).ToListAsync();
-
             return View(Models);
         }
     }

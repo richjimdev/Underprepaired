@@ -13,10 +13,10 @@ namespace Underprepaired.Models.Interfaces
 
         Task<CartItem> GetCartItem(int cartId, int productId);
 
-        Task AddToCart(CartItem ci);
+        void AddToCart(CartItem ci);
 
-        Task RemoveFromCart(int cartId, int productId);
+        void RemoveFromCart(int cartId, int productId);
 
-        Task UpdateQuantity(CartItem ci);
+        void UpdateQuantity(CartItem ci);
     }
 }

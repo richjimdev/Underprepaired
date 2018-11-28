@@ -17,36 +17,64 @@ namespace Underprepaired.Models.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Fetches the cart for user
+        /// </summary>
+        /// <param name="username">Username of user</param>
+        /// <returns>The user's cart</returns>
         public async Task<Cart> GetCart(string username)
         {
             return await _context.Carts.FirstOrDefaultAsync(x => x.Username == username);
         }
 
+        /// <summary>
+        /// Fetch item from cart
+        /// </summary>
+        /// <param name="cartId">Cart to grab from</param>
+        /// <param name="productId">Product to grab</param>
+        /// <returns>The product</returns>
         public async Task<CartItem> GetCartItem(int cartId, int productId)
         {
             return await _context.CartItems.FindAsync(productId, cartId);
         }
         
+        /// <summary>
+        /// Grabs all items in cart
+        /// </summary>
+        /// <param name="cart">Cart to grab from</param>
+        /// <returns>All items in cart</returns>
         public List<CartItem> GetAllCartItems(Cart cart)
         {
             return _context.CartItems.Where(x => x.CartID == cart.ID).ToList();
         }
 
-        public async Task AddToCart(CartItem ci)
+        /// <summary>
+        /// Adds item to cart
+        /// </summary>
+        /// <param name="ci">Cart item to add</param>
+        public async void AddToCart(CartItem ci)
         {
             _context.CartItems.Add(ci);
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveFromCart(int cartId, int productId)
+        /// <summary>
+        /// Removes item from cart
+        /// </summary>
+        /// <param name="cartId">Cart to remove from</param>
+        /// <param name="productId">Item to remove</param>
+        public async void RemoveFromCart(int cartId, int productId)
         {
             var cartItem = await _context.CartItems.FindAsync(productId, cartId);
             _context.CartItems.Remove(cartItem);
             await _context.SaveChangesAsync();
-
         }
 
-        public async Task UpdateQuantity(CartItem ci)
+        /// <summary>
+        /// Updates quantity of item in cart
+        /// </summary>
+        /// <param name="ci"></param>
+        public async void UpdateQuantity(CartItem ci)
         {
             _context.CartItems.Update(ci);
             await _context.SaveChangesAsync();

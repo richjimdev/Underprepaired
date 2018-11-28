@@ -22,6 +22,11 @@ namespace Underprepaired.Controllers
             _inventory = inventory;
         }
 
+        /// <summary>
+        /// Displays Cart items
+        /// </summary>
+        /// <param name="username">User username</param>
+        /// <returns>A razor view</returns>
         public async Task<IActionResult> Index(string username)
         {
             Cart cart = await _cart.GetCart(username);
@@ -39,6 +44,13 @@ namespace Underprepaired.Controllers
             return View(Models);
         }
 
+        /// <summary>
+        /// Adds item to the cart
+        /// </summary>
+        /// <param name="username">User's username</param>
+        /// <param name="productId">Product to add</param>
+        /// <param name="quantity">Quantity of product to add</param>
+        /// <returns>Razor View</returns>
         [HttpPost]
         public async Task<IActionResult> AddToCart(string username, int productId, int quantity)
         {
@@ -70,6 +82,13 @@ namespace Underprepaired.Controllers
             return RedirectToAction("Index", "Cart", new { username = username });
         }
 
+        /// <summary>
+        /// Updates Quantity of item in cart
+        /// </summary>
+        /// <param name="prodID">Product to update</param>
+        /// <param name="username">User's username</param>
+        /// <param name="quantity">New quantity</param>
+        /// <returns>Razor View</returns>
         [HttpPost]
         public async Task<IActionResult> UpdateQuantity(int prodID, string username, int quantity)
         {
@@ -91,6 +110,13 @@ namespace Underprepaired.Controllers
             return RedirectToAction("Index", "Cart", new { username = username });
         }
 
+        /// <summary>
+        /// Removes item from cart
+        /// </summary>
+        /// <param name="username">User's username</param>
+        /// <param name="cartID">Cart of user</param>
+        /// <param name="prodID">Product to remove</param>
+        /// <returns>Razor View</returns>
         public async Task<IActionResult> DeleteItem(string username, int cartID, int prodID)
         {
             await _cart.RemoveFromCart(cartID, prodID);
