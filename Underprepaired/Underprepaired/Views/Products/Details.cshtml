@@ -10,13 +10,14 @@
 
 <section id="about" class="projects-section text-center text-light">
     <div class="container">
-        <div class="ml-auto mt-4">
-            <div class="float-left pl-5">
-                <img src="@Model.ImageURL" width="400" />
+        <div class="d-flex shadow-lg ml-auto mt-4 bg-light py-5 px-5 text-dark rounded">
+            <div class="">
+                <img class="rounded shadow-sm" src="@Model.ImageURL" width="400" />
             </div>
 
-            <div class="ml-5 w-75 text-center">
+            <div class="px-5 text-center">
                 <h2>@Model.Name</h2>
+                <div class="h-25"></div>
                 <p>@Model.Description</p>
                 <p>Price: $@Model.Price</p>
 
