@@ -3,104 +3,106 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model dynamic
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th class="text-center">Price</th>
-                        <th class="text-center">Total</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @{ decimal total = 0;}
-
-                    @foreach (var item in Model.CartItems)
-                    {
-                        if (item.Product != null)
-                        {
-                            total += item.Product.Price * item.Quantity;
+<section id="about" class="projects-section text-center">
+    <div class="container text-dark text-center bg-light">
+            <div class="pt-5 pb-5 d-flex justify-content-center">
+                <div class="col-sm-12 col-md-10 col-md-offset-1">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <td class="col-sm-8 col-md-6">
-                                    <div class="media">
-                                        <a class="thumbnail pull-left" href="#"> <img class="media-object" src="@item.Product.ImageURL" style="width: 72px; height: 72px;"> </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">
-                                                <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
-                                                    @item.Product.Name
-                                                </a>
-                                            </h4>
-                                        </div>
-                                    </div>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Total</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @{ decimal total = 0;}
+
+                            @foreach (var item in Model.CartItems)
+                            {
+                                if (item.Product != null)
+                                {
+                                    total += item.Product.Price * item.Quantity;
+                                    <tr>
+                                        <td class="col-sm-8 col-md-6">
+                                            <div class="media">
+                                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="@item.Product.ImageURL" style="width: 72px; height: 72px;"> </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">
+                                                        <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
+                                                            @item.Product.Name
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="col-sm-1 col-md-1 row" style="text-align: center">
+                                            <form asp-action="UpdateQuantity" asp-controller="Cart">
+                                                <input class="col-sm mt-2" type="number" min="0" name="quantity" value="@item.Quantity">
+                                                <input type="hidden" name="prodID" value="@item.ProductID" />
+                                                <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+                                                <button class="btn btn-secondary mt-2 col-sm">Update</button>
+                                            </form>
+                                        </td>
+                                        <td class="col-sm-1 col-md-1 text-center"><strong>$@item.Product.Price</strong></td>
+                                        <td class="col-sm-1 col-md-1 text-center"><strong>$@(item.Product.Price * item.Quantity)</strong></td>
+                                        <td class="col-sm-1 col-md-1">
+                                            <form asp-action="DeleteItem" asp-controller="Cart">
+                                                <input type="hidden" name="cartID" value="@item.CartID" />
+                                                <input type="hidden" name="prodID" value="@item.ProductID" />
+                                                <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
+                                                <button class="btn btn-danger">
+                                                    <span class="glyphicon glyphicon-remove">Remove</span>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td><h5>Subtotal</h5></td>
+                                <td class="text-right"><h5><strong>$@total</strong></h5></td>
+                            </tr>
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td><h5>Estimated shipping</h5></td>
+                                <td class="text-right"><h5><strong>$0</strong></h5></td>
+                            </tr>
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td><h3>Total</h3></td>
+                                <td class="text-right"><h3><strong>$@total</strong></h3></td>
+                            </tr>
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>
+                                    <a class="btn btn-secondary" href="/products">Continue Shopping</a>
                                 </td>
-                                <td class="col-sm-1 col-md-1 row" style="text-align: center">
-                                    <form asp-action="UpdateQuantity" asp-controller="Cart">
-                                        <input class="col-sm mt-2" type="number" min="0" name="quantity" value="@item.Quantity">
-                                        <input type="hidden" name="prodID" value="@item.ProductID" />
+                                <td>
+                                    <form asp-controller="Checkout" asp-action="Receipt">
                                         <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
-                                        <button class="btn btn-secondary mt-2 col-sm">Update</button>
-                                    </form>
-                                </td>
-                                <td class="col-sm-1 col-md-1 text-center"><strong>$@item.Product.Price</strong></td>
-                                <td class="col-sm-1 col-md-1 text-center"><strong>$@(item.Product.Price * item.Quantity)</strong></td>
-                                <td class="col-sm-1 col-md-1">
-                                    <form asp-action="DeleteItem" asp-controller="Cart">
-                                        <input type="hidden" name="cartID" value="@item.CartID" />
-                                        <input type="hidden" name="prodID" value="@item.ProductID" />
-                                        <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
-                                        <button class="btn btn-danger">
-                                            <span class="glyphicon glyphicon-remove">Remove</span> 
+                                        <button class="btn btn-success">
+                                            Checkout <span class="glyphicon glyphicon-play"></span>
                                         </button>
                                     </form>
                                 </td>
                             </tr>
-                        }
-                    }
-
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h5>Subtotal</h5></td>
-                        <td class="text-right"><h5><strong>$@total</strong></h5></td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h5>Estimated shipping</h5></td>
-                        <td class="text-right"><h5><strong>$0</strong></h5></td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h3>Total</h3></td>
-                        <td class="text-right"><h3><strong>$@total</strong></h3></td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>
-                            <a class="btn btn-secondary" href="/products">Continue Shopping</a>
-                        </td>
-                        <td>
-                            <form asp-controller="Checkout" asp-action="Receipt">
-                                <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
-                                <button class="btn btn-success">
-                                    Checkout <span class="glyphicon glyphicon-play"></span>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
