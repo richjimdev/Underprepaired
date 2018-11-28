@@ -289,6 +289,9 @@
 body {
     font-family: 'Nunito';
     letter-spacing: 0.0625em;
+    background-image: url("../img/bg1.jpg");
+    /*background-size: cover;*/
+    background-blend-mode: multiply;
     background-color: #1d5380;
 }
 

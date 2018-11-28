@@ -16,27 +16,29 @@
             {
                 <li>
                     <span class="item">
-                        <span class="item-left">
-                            <img src="@item.Product.ImageURL" width="50" alt="" />
+                        <span class="d-flex item-left">
+                            <img style="align-self: center" src="@item.Product.ImageURL" width="50" alt="" />
                             <span class="item-info">
                                 <a asp-action="Details" asp-controller="Products" asp-route-id="@item.Product.ID">
                                     <span>
                                         @item.Product.Name
                                     </span>
                                 </a>
-                                <span>price: $@item.Product.Price</span>
-                                <span>subtotal: $@(item.Product.Price * item.Quantity)</span>
+                                <span>Price: $@item.Product.Price</span>
+                                <span>Subtotal: $@(item.Product.Price * item.Quantity)</span>
                                 <span>Qty: @item.Quantity</span>
                             </span>
                         </span>
                     </span>
                 </li>
 
+                <hr/>
+
                 total += item.Product.Price * item.Quantity;
             }
         }
 
-        <p class="text-center mt-4"> Grand Total: $@total  </p>
+        <p class="text-center mt-4 font-weight-bold"> Grand Total: $@total  </p>
         <form asp-action="Index" class="text-center" asp-controller="Cart">
             <input type="hidden" name="username" value="@SignInManager.UserManager.GetUserName(User)" />
             <button class="btn btn-primary" >View Cart</button>
