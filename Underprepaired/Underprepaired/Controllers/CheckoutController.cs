@@ -17,12 +17,19 @@ namespace Underprepaired.Controllers
         private IInventory _inventory;
         private IEmailSender _email;
 
+
         public CheckoutController(ICart cart, IInventory inventory, IEmailSender email)
         {
             _cart = cart;
             _inventory = inventory;
             _email = email;
         }
+
+        /// <summary>
+        /// Compiles a receipt of purchase
+        /// </summary>
+        /// <param name="username">User's username</param>
+        /// <returns>Razor view</returns>
         public async Task<IActionResult> Receipt(string username)
         {
             Cart cart = await _cart.GetCart(username);

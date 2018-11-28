@@ -6,27 +6,32 @@
 
 @{ decimal total = 0;}
 
-@foreach (var item in Model.CartItems)
-{
-    <div>
-        <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
-            @item.Product.Name
-        </a>
+<section id="about" class="projects-section text-center">
+    <div class="pt-5 pb-5 container text-dark text-center bg-light">
 
-        <p>
-            Price: @item.Product.Price
-        </p>
+            @foreach (var item in Model.CartItems)
+            {
+                <div>
+                    <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
+                        @item.Product.Name
+                    </a>
 
-        <p>
-            Quantity: @item.Quantity
-        </p>
+                    <p>
+                        Price: @item.Product.Price
+                    </p>
 
-        <p>
-            Total: $@(item.Product.Price * item.Quantity)
-        </p>
-    </div>
+                    <p>
+                        Quantity: @item.Quantity
+                    </p>
 
-    total += item.Product.Price * item.Quantity;
-}
+                    <p>
+                        Total: $@(item.Product.Price * item.Quantity)
+                    </p>
+                </div>
 
-<h2> Grand Total: @total </h2>
+                total += item.Product.Price * item.Quantity;
+            }
+
+            <h2> Grand Total: @total </h2>
+        </div>
+</section>
