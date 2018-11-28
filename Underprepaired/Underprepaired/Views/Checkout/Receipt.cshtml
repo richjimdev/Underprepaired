@@ -7,31 +7,45 @@
 @{ decimal total = 0;}
 
 <section id="about" class="projects-section text-center">
-    <div class="pt-5 pb-5 container text-dark text-center bg-light">
+    <div class="w-50 pt-5 pb-5 container text-dark text-center bg-light">
 
-            @foreach (var item in Model.CartItems)
-            {
-                <div>
-                    <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
-                        @item.Product.Name
-                    </a>
+            <h2 class="mb-5">Receipt</h2>
 
-                    <p>
-                        Price: @item.Product.Price
-                    </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td scope="row">
+                                    <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
+                                        @item.Product.Name
+                                    </a>
+                                </td>
 
-                    <p>
-                        Quantity: @item.Quantity
-                    </p>
+                                <td scope="row">
+                                    $@item.Product.Price
+                                </td>
 
-                    <p>
-                        Total: $@(item.Product.Price * item.Quantity)
-                    </p>
-                </div>
+                                <td scope="row">
+                                    @item.Quantity
+                                </td>
 
-                total += item.Product.Price * item.Quantity;
-            }
-
-            <h2> Grand Total: @total </h2>
+                                <td class="font-weight-bold" scope="row">
+                                    $@(item.Product.Price * item.Quantity)
+                                </td>
+                            </tr>
+                            total += item.Product.Price * item.Quantity;
+                        }
+                    </tbody>
+                </table>
+            <h3 class="mt-5"> Grand Total: $@total </h3>
         </div>
 </section>
