@@ -36,11 +36,11 @@
                             Logged In As: @User.Claims.First(name => name.Type == "FullName").Value
                         </li>
                         @await Component.InvokeAsync("CartPreview", @SignInManager.UserManager.GetUserName(User))
-                    <li class="nav-item">
-                        <form asp-action="Logout" asp-controller="Account" method="post">
-                            <button class="btn-link nav-link js-scroll-trigger" type="submit">Logout</button>
-                        </form>
-                    </li>
+                        <li class="nav-item">
+                            <form asp-action="Logout" asp-controller="Account" method="post">
+                                <button class="btn-link nav-link js-scroll-trigger" type="submit">Logout</button>
+                            </form>
+                        </li>
                     }
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/products">Shop</a>
@@ -61,37 +61,36 @@
 
 
     @*@if (SignInManager.IsSignedIn(User))
-    {
-        <nav class="navbar navbar-dark bg-dark">
-            <a asp-action="Index" asp-controller="Home" class="navbar-brand my-auto">UnderprePAIRed!</a>
-            <div class="form-inline my-2 my-lg-0">
-                <p class="text-light my-auto">
-                    Logged In As: @User.Claims.First(name => name.Type == "FullName").Value
-                </p>
-                @await Component.InvokeAsync("CartPreview", @SignInManager.UserManager.GetUserName(User))
-                <a class="nav-item nav-link" href="/products">Shop</a>
-                <form asp-action="Logout" asp-controller="Account" method="post">
-                    <button class="btn btn-link" type="submit">Logout</button>
-                </form>
-            </div>
-        </nav>
-    }
-    else
-    {
-        <nav class="navbar navbar-dark bg-dark">
-            <p class="navbar-brand my-auto">UnderprePAIRed!</p>
-            <div class="row my-auto">
-                <a class="nav-item nav-link" href="/products">Shop</a>
-                <a class="nav-item nav-link" href="/account/login">Login</a>
-                <a class="nav-item nav-link" href="/account/register">Register</a>
-            </div>
-        </nav>
-    }*@
+        {
+            <nav class="navbar navbar-dark bg-dark">
+                <a asp-action="Index" asp-controller="Home" class="navbar-brand my-auto">UnderprePAIRed!</a>
+                <div class="form-inline my-2 my-lg-0">
+                    <p class="text-light my-auto">
+                        Logged In As: @User.Claims.First(name => name.Type == "FullName").Value
+                    </p>
+                    @await Component.InvokeAsync("CartPreview", @SignInManager.UserManager.GetUserName(User))
+                    <a class="nav-item nav-link" href="/products">Shop</a>
+                    <form asp-action="Logout" asp-controller="Account" method="post">
+                        <button class="btn btn-link" type="submit">Logout</button>
+                    </form>
+                </div>
+            </nav>
+        }
+        else
+        {
+            <nav class="navbar navbar-dark bg-dark">
+                <p class="navbar-brand my-auto">UnderprePAIRed!</p>
+                <div class="row my-auto">
+                    <a class="nav-item nav-link" href="/products">Shop</a>
+                    <a class="nav-item nav-link" href="/account/login">Login</a>
+                    <a class="nav-item nav-link" href="/account/register">Register</a>
+                </div>
+            </nav>
+        }*@
 
+    <!-- Header -->
 
-    <div>
         @RenderBody()
-    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="~/vendor/jquery/jquery.min.js"></script>

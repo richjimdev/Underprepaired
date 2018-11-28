@@ -5,30 +5,28 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Index</h2>
 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="row">
-    @foreach (var item in Model)
-    {
+<section id="about" class="projects-section text-center">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
 
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="@item.ImageURL" width="150" />
-            <div class="card-body">
-                <h5 class="card-title">@item.Name</h5>
-                <p class="card-text">@item.Price</p>
-                <p class="card-text">@item.Description</p>
-                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a>
-            </div>
+                <div class="card" style="width: 14rem;">
+                    <img class="card-img-top" src="@item.ImageURL" width="150" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Price</p>
+                        <p class="card-text">@item.Description</p>
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    </div>
+                </div>  
+
+            }
+
         </div>
+    </div>
+</section>
 
-        @*<a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                |
 
-            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
-
-    }
-</div>
