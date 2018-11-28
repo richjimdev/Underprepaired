@@ -52,7 +52,7 @@ namespace Underprepaired.Models.Services
         /// Adds item to cart
         /// </summary>
         /// <param name="ci">Cart item to add</param>
-        public async void AddToCart(CartItem ci)
+        public async Task AddToCart(CartItem ci)
         {
             _context.CartItems.Add(ci);
             await _context.SaveChangesAsync();
@@ -63,7 +63,7 @@ namespace Underprepaired.Models.Services
         /// </summary>
         /// <param name="cartId">Cart to remove from</param>
         /// <param name="productId">Item to remove</param>
-        public async void RemoveFromCart(int cartId, int productId)
+        public async Task RemoveFromCart(int cartId, int productId)
         {
             var cartItem = await _context.CartItems.FindAsync(productId, cartId);
             _context.CartItems.Remove(cartItem);
@@ -74,7 +74,8 @@ namespace Underprepaired.Models.Services
         /// Updates quantity of item in cart
         /// </summary>
         /// <param name="ci"></param>
-        public async void UpdateQuantity(CartItem ci)
+        /// <returns></returns>
+        public async Task UpdateQuantity(CartItem ci)
         {
             _context.CartItems.Update(ci);
             await _context.SaveChangesAsync();
