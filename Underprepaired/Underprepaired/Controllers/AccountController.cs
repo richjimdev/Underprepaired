@@ -129,7 +129,7 @@ namespace Underprepaired.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "You are wrong");
+                    ModelState.AddModelError("", "Try again");
                 }
 
             }
