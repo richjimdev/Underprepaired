@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Underprepaired", "Underprepaired\Underprepaired.csproj", "{DE28B819-7177-4EB3-882F-8ADB9E0A47AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnderprepairedTests", "UnderprepairedTests\UnderprepairedTests.csproj", "{6E05A1C6-8F45-4470-B4FD-DA30621CE19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnderprepairedTests", "UnderprepairedTests\UnderprepairedTests.csproj", "{6E05A1C6-8F45-4470-B4FD-DA30621CE19A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
