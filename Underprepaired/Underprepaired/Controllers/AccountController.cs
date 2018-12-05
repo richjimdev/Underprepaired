@@ -20,13 +20,15 @@ namespace Underprepaired.Controllers
         private SignInManager<ApplicationUser> _signInManager;
         private UnderprepairedDbContext _context;
         private IEmailSender _email;
+        private ApplicationDbContext _identity;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UnderprepairedDbContext context, IEmailSender email)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UnderprepairedDbContext context, IEmailSender email, ApplicationDbContext identity)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _email = email;
+            _identity = identity;
         }
 
         /// <summary>
@@ -49,6 +51,8 @@ namespace Underprepaired.Controllers
         {
             if (ModelState.IsValid)
             {
+                CheckUserRoleExists();
+
                 ApplicationUser user = new ApplicationUser()
                 {
                     UserName = rvm.Email,
@@ -79,6 +83,13 @@ namespace Underprepaired.Controllers
                         fullNameClaim,
                         emailClaim
                     };
+
+                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "richjim89@gmail.com" || rvm.Email == "admintest2@test.com")
+                    {
+                        await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                    }
+
+                    await _userManager.AddToRoleAsync(user, UserRoles.Member);
 
                     await _userManager.AddClaimsAsync(user, myClaims);
 
@@ -123,9 +134,16 @@ namespace Underprepaired.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
 
+                ApplicationUser user = await _userManager.FindByEmailAsync(lvm.Email);
+
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return Redirect("/admin/adminpanel/");
+                    }
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -159,6 +177,26 @@ namespace Underprepaired.Controllers
         public IActionResult Founder()
         {
             return View();
+        }
+
+        public void CheckUserRoleExists()
+        {
+            if (!_identity.Roles.Any())
+            {
+                List<IdentityRole> Roles = new List<IdentityRole>
+                {
+                    new IdentityRole{Name = UserRoles.Admin,
+                    NormalizedName=UserRoles.Admin.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
+                    new IdentityRole{Name = UserRoles.Member,
+                    NormalizedName=UserRoles.Member.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() },
+                };
+
+                foreach (var role in Roles)
+                {
+                    _identity.Roles.Add(role);
+                    _identity.SaveChanges();
+                }
+            }
         }
     }
 }
