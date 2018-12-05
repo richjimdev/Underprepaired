@@ -80,5 +80,32 @@ namespace Underprepaired.Models.Services
             _context.CartItems.Update(ci);
             await _context.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Removes all cart items
+        /// </summary>
+        /// <param name="cartId">The cart id</param>
+        /// <param name="items">The items in that cart</param>
+        /// <returns></returns>
+        public async Task RemoveAllCartItems(int cartId, List<CartItem> items)
+        {
+            foreach(CartItem item in items)
+            {
+                var cartItem = await _context.CartItems.FindAsync(item.ProductID, cartId);
+                _context.CartItems.Remove(cartItem);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Creates a new order
+        /// </summary>
+        /// <param name="order">The order to be added to table</param>
+        /// <returns></returns>
+        public async Task CreateOrder(Order order)
+        {
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+        }
     }
 }
