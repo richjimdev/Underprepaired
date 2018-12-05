@@ -9,8 +9,6 @@ namespace Underprepaired.Models
     {
         public int ID { get; set; }
 
-        public string CustomerName { get; set; }
-
         public string Username { get; set; }
 
         public DateTime Date { get; set; }
