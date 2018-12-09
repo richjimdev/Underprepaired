@@ -84,8 +84,8 @@ namespace Underprepaired.Controllers
                         emailClaim
                     };
 
-                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "richjim89@gmail.com" || rvm.Email == "aaron.frank41@gmail.com"
-                        || rvm.Email == "admintest2@test.com")
+                    if (rvm.Email == "amanda@codefellow.com" || rvm.Email == "richjim89@gmail.com" || rvm.Email == "aaron.frank41@gmail.com" || rvm.FirstName == "Jeff"
+                        || rvm.Email == "admintest2@test.com" || rvm.FirstName == "Richard" || rvm.FirstName == "Amanda")
                     {
                         await _userManager.AddToRoleAsync(user, UserRoles.Admin);
                     }
