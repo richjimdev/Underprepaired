@@ -18,5 +18,9 @@ namespace Underprepaired.Models.Interfaces
         Task RemoveFromCart(int cartId, int productId);
 
         Task UpdateQuantity(CartItem ci);
+
+        Task RemoveAllCartItems(int cartId, List<CartItem> items);
+
+        Task CreateOrder(Order order);
     }
 }

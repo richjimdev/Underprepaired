@@ -1,0 +1,13 @@
+﻿@page
+@model Underprepaired.Pages.Profile.ProfileModel
+
+@using Microsoft.AspNetCore.Identity
+@using Underprepaired.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+@{
+
+}
+
+<h1>Profile page of: @SignInManager.UserManager.GetUserName(User)</h1>

@@ -62,6 +62,7 @@ namespace Underprepaired
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("FounderEmailPolicy", policy => policy.Requirements.Add(new EmailRequirement()));
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
             });
 
             services.AddScoped<IAuthorizationHandler, UnderprepairedEmailHandler>();

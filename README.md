@@ -16,3 +16,9 @@ Visit https://underprepaired.azurewebsites.net
 PRODUCT: Holds all product information for our website and has a one to many relationship with Cart Item
 CART: Holds all user carts and has a property for username to associate a cart with a user
 CART ITEM: Holds all items that belong in carts, uses product id and cart id to make a composite key and has navigation properties for both
+
+## Vulnerability Report
+![Vulnerability Report](/vulnerability-report.md)
+
+## Contributors
+Aaron Frank & Richard Jimenez
