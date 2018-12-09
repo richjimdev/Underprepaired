@@ -11,7 +11,7 @@ We are enforcing an email policy to check if users have an @underprepaired.shop 
 Visit https://underprepaired.azurewebsites.net
 
 ## DB Schema
-![](/Underprepaired_DB)
+![](/Underprepaired_DB.jpg)
 
 PRODUCT: Holds all product information for our website and has a one to many relationship with Cart Item
 CART: Holds all user carts and has a property for username to associate a cart with a user
